@@ -68,7 +68,6 @@ func Exists(dir string) bool {
 func GetDefaultConfig() *Config {
 	return &Config{
 		Skills: []string{
-			"common/commit-convention",
 			"common/code-reviewer",
 		},
 	}

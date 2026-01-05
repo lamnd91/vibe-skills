@@ -10,6 +10,8 @@ A community-driven collection of skills for Claude Code. Easily install and mana
 - **Self-updating** - CLI can update itself from GitHub releases
 - **Remote registry** - Skills fetched from GitHub, always up-to-date without CLI updates
 - **Multi-branch support** - Test pre-release skills from develop or feature branches
+- **Multi-file skills** - Skills can include examples, templates, and reference files
+- **Easy updates** - Update installed skills to latest version with one command
 
 ## Installation
 
@@ -99,6 +101,17 @@ vibe-skills list --installed
 ```bash
 vibe-skills search "database"
 vibe-skills search "review"
+```
+
+### Update skills
+
+```bash
+# Update all installed skills to latest version
+vibe-skills update
+
+# Update specific skill(s)
+vibe-skills update code-reviewer
+vibe-skills update code-reviewer sqlserver-expert
 ```
 
 ### Remove skills

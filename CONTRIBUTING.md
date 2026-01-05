@@ -76,7 +76,21 @@ This will automatically update `skills/registry.json` with your new skill.
 - **Use formatting**: Headers, lists, and code blocks improve readability
 - **Include examples**: Show both good and bad patterns
 
-### 6. Test Locally
+### 6. Multi-File Skills
+
+Skills can include additional files (examples, templates, references):
+
+```
+skills/database/sqlserver-expert/
+├── SKILL.md                    # Main skill file (required)
+└── references/
+    ├── performance.md
+    └── tsql-advanced.md
+```
+
+The `generate-registry.sh` script automatically detects additional files and adds them to `registry.json`.
+
+### 7. Test Locally
 
 Since the CLI fetches skills from GitHub, you'll need to push your changes to test with the remote registry. However, you can verify the skill structure:
 
@@ -93,6 +107,7 @@ go build -o vibe-skills ./cmd/vibe-skills
 # Test with a specific branch (after pushing)
 ./vibe-skills list --branch your-feature-branch
 ./vibe-skills install <skill-name> --branch your-feature-branch
+./vibe-skills update <skill-name> --branch your-feature-branch
 ```
 
 ## Submitting Changes
@@ -154,15 +169,15 @@ go test ./...
 vibe-skills/
 ├── cmd/vibe-skills/       # CLI entry point
 ├── internal/
-│   ├── cli/               # Cobra commands
+│   ├── cli/               # Cobra commands (install, update, remove, list, etc.)
 │   ├── config/            # Config file handling (.vibe-skills.yaml)
-│   ├── installer/         # Skill installation logic
+│   ├── installer/         # Skill installation logic (Install, Update, Remove)
 │   ├── registry/          # GitHub registry client & caching
-│   ├── updater/           # Self-update logic
+│   ├── updater/           # Self-update logic for CLI binary
 │   └── version/           # Version info
 ├── skills/                # Skill content (fetched from GitHub)
-│   ├── registry.json      # Auto-generated skill index
-│   └── <stack>/<name>/    # Individual skills
+│   ├── registry.json      # Auto-generated skill index (includes files array)
+│   └── <stack>/<name>/    # Individual skills (SKILL.md + optional files)
 ├── scripts/
 │   ├── install.sh         # One-liner installer
 │   └── generate-registry.sh  # Registry generator

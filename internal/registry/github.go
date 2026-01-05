@@ -18,19 +18,21 @@ const (
 
 // GitHubRegistry fetches skills from GitHub
 type GitHubRegistry struct {
-	owner  string
-	repo   string
-	ref    string // branch, tag, or commit
-	cache  *Cache
-	client *http.Client
+	owner   string
+	repo    string
+	ref     string // branch, tag, or commit
+	cache   *Cache
+	noCache bool
+	client  *http.Client
 }
 
 // GitHubRegistryOptions configures the GitHub registry
 type GitHubRegistryOptions struct {
-	Owner  string
-	Repo   string
-	Branch string
-	Ref    string // Takes precedence over Branch if set
+	Owner   string
+	Repo    string
+	Branch  string
+	Ref     string // Takes precedence over Branch if set
+	NoCache bool   // Skip cache and fetch fresh from registry
 }
 
 // NewGitHubRegistry creates a new GitHub-based registry
@@ -58,10 +60,11 @@ func NewGitHubRegistry(opts *GitHubRegistryOptions) *GitHubRegistry {
 	}
 
 	return &GitHubRegistry{
-		owner: owner,
-		repo:  repo,
-		ref:   ref,
-		cache: NewCache(),
+		owner:   owner,
+		repo:    repo,
+		ref:     ref,
+		cache:   NewCache(),
+		noCache: opts.NoCache,
 		client: &http.Client{
 			Timeout: 30 * time.Second,
 		},
@@ -196,9 +199,11 @@ func (g *GitHubRegistry) GetFiles(skill *Skill) (map[string][]byte, error) {
 
 // fetchIndex fetches and caches the registry index
 func (g *GitHubRegistry) fetchIndex() (*RegistryIndex, error) {
-	// Try cache first
-	if cached, ok := g.cache.Get(g.ref); ok {
-		return cached, nil
+	// Try cache first (unless --no-cache flag is set)
+	if !g.noCache {
+		if cached, ok := g.cache.Get(g.ref); ok {
+			return cached, nil
+		}
 	}
 
 	// Fetch from GitHub

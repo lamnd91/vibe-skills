@@ -11,8 +11,9 @@ import (
 
 var (
 	// Global flags
-	flagBranch string
-	flagRef    string
+	flagBranch  string
+	flagRef     string
+	flagNoCache bool
 )
 
 var rootCmd = &cobra.Command{
@@ -35,6 +36,7 @@ func init() {
 	// Global flags for registry branch/ref
 	rootCmd.PersistentFlags().StringVar(&flagBranch, "branch", "", "Use skills from specific branch (e.g., develop)")
 	rootCmd.PersistentFlags().StringVar(&flagRef, "ref", "", "Use skills from specific ref (branch, tag, or commit)")
+	rootCmd.PersistentFlags().BoolVar(&flagNoCache, "no-cache", false, "Skip cache and fetch fresh from registry")
 
 	rootCmd.AddCommand(initCmd)
 	rootCmd.AddCommand(installCmd)
@@ -65,6 +67,7 @@ func getRegistry() (*registry.GitHubRegistry, error) {
 	ref := config.ResolveRef(flagBranch, flagRef, projectCfg, globalCfg)
 
 	return registry.NewGitHubRegistry(&registry.GitHubRegistryOptions{
-		Ref: ref,
+		Ref:     ref,
+		NoCache: flagNoCache,
 	}), nil
 }

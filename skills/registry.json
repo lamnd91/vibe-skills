@@ -4,14 +4,16 @@
     {
       "name": "code-reviewer",
       "stack": "common",
-      "description": "Systematic approach to reviewing code changes for quality, correctness, and maintainability.",
-      "path": "common/code-reviewer/SKILL.md"
+      "description": "Systematic code review for quality, correctness, and maintainability. Use when reviewing pull requests, code changes, diffs, or when asked to review/critique code. Covers functionality, architecture, ",
+      "path": "common/code-reviewer/SKILL.md",
+      "files": []
     },
     {
-      "name": "commit-convention",
-      "stack": "common",
-      "description": "Follow conventional commit format for all git commits.",
-      "path": "common/commit-convention/SKILL.md"
+      "name": "sqlserver-expert",
+      "stack": "database",
+      "description": "Expert in Microsoft SQL Server development and administration. Use when writing T-SQL queries, stored procedures, optimizing database performance (deadlocks, slow queries, execution plans), designing ",
+      "path": "database/sqlserver-expert/SKILL.md",
+      "files": []
     }
   ]
 }

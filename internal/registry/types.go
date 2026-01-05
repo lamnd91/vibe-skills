@@ -2,10 +2,11 @@ package registry
 
 // Skill represents a skill in the registry
 type Skill struct {
-	Name        string `json:"name"`
-	Stack       string `json:"stack"`
-	Description string `json:"description"`
-	Path        string `json:"path"`
+	Name        string   `json:"name"`
+	Stack       string   `json:"stack"`
+	Description string   `json:"description"`
+	Path        string   `json:"path"`
+	Files       []string `json:"files,omitempty"` // Additional files for multi-file skills
 }
 
 // RegistryIndex represents the registry.json structure
@@ -33,4 +34,8 @@ type Registry interface {
 
 	// GetContent returns the content of a skill's SKILL.md
 	GetContent(skill *Skill) ([]byte, error)
+
+	// GetFiles returns all files for a multi-file skill
+	// Returns map of relative path -> content
+	GetFiles(skill *Skill) (map[string][]byte, error)
 }

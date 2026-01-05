@@ -1,66 +1,102 @@
+---
+name: code-reviewer
+description: Systematic code review for quality, correctness, and maintainability. Use when reviewing pull requests, code changes, diffs, or when asked to review/critique code. Covers functionality, architecture, performance, security, testing, and documentation with structured feedback using priority prefixes.
+---
+
 # Code Reviewer
 
-Systematic approach to reviewing code changes for quality, correctness, and maintainability.
+Systematic approach to reviewing code changes.
 
-## Review Checklist
+## Review Process
+
+1. **Understand context** - Read PR description, linked issues, related files
+2. **Review by area** - Apply relevant checklists below
+3. **Provide feedback** - Use comment format with priority prefixes
+
+## Comment Format
+
+| Prefix | Meaning | Action |
+|--------|---------|--------|
+| `[BLOCKING]` | Must fix before merge | Required |
+| `[SUGGESTION]` | Improvement opportunity | Optional |
+| `[QUESTION]` | Need clarification | Response needed |
+| `[NIT]` | Minor style issue | Optional |
+
+**Structure:**
+```
+[PREFIX] Brief issue description
+
+Why: Explanation of the problem or risk
+Fix: Suggested solution or alternative
+```
+
+**Example:**
+```
+[BLOCKING] SQL injection vulnerability in user search
+
+Why: User input concatenated directly into query string
+Fix: Use parameterized query
+
+// Before
+var sql = $"SELECT * FROM Users WHERE Name = '{input}'";
+
+// After  
+var sql = "SELECT * FROM Users WHERE Name = @name";
+cmd.Parameters.AddWithValue("@name", input);
+```
+
+## Review Checklists
 
 ### Functionality
-- [ ] Code accomplishes the intended purpose
-- [ ] Edge cases are handled appropriately
-- [ ] Error handling is comprehensive and user-friendly
-- [ ] No regressions to existing functionality
+- Code accomplishes intended purpose
+- Edge cases handled (null, empty, boundary values)
+- Error handling comprehensive and user-friendly
+- No regressions to existing functionality
 
 ### Code Quality
-- [ ] Code is readable and self-documenting
-- [ ] Functions/methods have single responsibility
-- [ ] No code duplication (DRY principle)
-- [ ] Appropriate abstraction level
-- [ ] Naming is clear and consistent
+- Readable and self-documenting
+- Functions have single responsibility
+- No code duplication (DRY)
+- Clear, consistent naming
 
 ### Architecture
-- [ ] Follows established project patterns
-- [ ] Dependencies are appropriate and minimal
-- [ ] No circular dependencies
-- [ ] Changes are in the right location/layer
+- Follows established project patterns
+- Dependencies appropriate and minimal
+- No circular dependencies
+- Changes in correct location/layer
 
 ### Performance
-- [ ] No obvious performance issues (N+1 queries, unnecessary loops)
-- [ ] Resources are properly released/cleaned up
-- [ ] Caching is used appropriately
-- [ ] Database queries are optimized
+- No N+1 queries
+- Resources properly released/cleaned up
+- Database queries optimized
+- Async operations where beneficial
 
 ### Security
-- [ ] Input validation is present
-- [ ] No hardcoded secrets or credentials
-- [ ] SQL injection prevention (parameterized queries)
-- [ ] XSS prevention (output encoding)
-- [ ] Authentication/authorization checks in place
+- Input validation present
+- No hardcoded secrets/credentials
+- SQL injection prevention (parameterized queries)
+- XSS prevention (output encoding)
+- Authentication/authorization checks in place
 
 ### Testing
-- [ ] Unit tests cover new/changed code
-- [ ] Edge cases are tested
-- [ ] Tests are readable and maintainable
-- [ ] Integration tests if needed
+- Unit tests cover new/changed code
+- Edge cases tested
+- Tests readable and maintainable
+- Integration tests if needed
 
 ### Documentation
-- [ ] Public APIs are documented
-- [ ] Complex logic has comments explaining "why"
-- [ ] README updated if needed
-- [ ] Breaking changes documented
+- Public APIs documented
+- Complex logic has comments explaining "why"
+- Breaking changes documented
 
-## Review Comments
+### Database & API Changes
+- Migrations reversible
+- API backward compatible or versioned
+- Indexes added for query patterns
 
-When leaving feedback:
+## Feedback Principles
 
-1. **Be specific**: Point to exact lines and suggest alternatives
-2. **Be constructive**: Explain why something is an issue
-3. **Be respectful**: Focus on the code, not the person
-4. **Prioritize**: Mark blocking issues vs. suggestions
-5. **Praise good work**: Acknowledge well-written code
-
-### Comment Prefixes
-
-- `[BLOCKING]`: Must be fixed before merge
-- `[SUGGESTION]`: Consider this improvement
-- `[QUESTION]`: Need clarification
-- `[NIT]`: Minor style issue, optional to fix
+- Point to exact lines with specific alternatives
+- Explain *why* something is problematic
+- Focus on code, not the author
+- Acknowledge good patterns when found

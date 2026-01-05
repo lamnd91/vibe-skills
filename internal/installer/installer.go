@@ -16,6 +16,7 @@ type SkillProvider interface {
 	List() ([]registry.Skill, error)
 	ListByStack(stack string) ([]registry.Skill, error)
 	GetContent(skill *registry.Skill) ([]byte, error)
+	GetFiles(skill *registry.Skill) (map[string][]byte, error)
 }
 
 type Installer struct {
@@ -36,6 +37,16 @@ func (i *Installer) Install(skillName string) error {
 		return fmt.Errorf("skill not found: %s", skillName)
 	}
 
+	// Determine if multi-file skill
+	isMultiFile := len(skill.Files) > 0
+
+	if isMultiFile {
+		return i.installMultiFile(skill)
+	}
+	return i.installSingleFile(skill)
+}
+
+func (i *Installer) installSingleFile(skill *registry.Skill) error {
 	content, err := i.provider.GetContent(skill)
 	if err != nil {
 		return fmt.Errorf("failed to read skill content: %w", err)
@@ -51,6 +62,29 @@ func (i *Installer) Install(skillName string) error {
 	// Write skill file
 	if err := os.WriteFile(targetPath, content, 0644); err != nil {
 		return fmt.Errorf("failed to write skill file: %w", err)
+	}
+
+	return nil
+}
+
+func (i *Installer) installMultiFile(skill *registry.Skill) error {
+	files, err := i.provider.GetFiles(skill)
+	if err != nil {
+		return fmt.Errorf("failed to fetch skill files: %w", err)
+	}
+
+	skillDir := filepath.Join(i.baseDir, TargetDir, skill.Name)
+
+	for relPath, content := range files {
+		fullPath := filepath.Join(skillDir, relPath)
+
+		if err := os.MkdirAll(filepath.Dir(fullPath), 0755); err != nil {
+			return fmt.Errorf("failed to create directory for %s: %w", relPath, err)
+		}
+
+		if err := os.WriteFile(fullPath, content, 0644); err != nil {
+			return fmt.Errorf("failed to write %s: %w", relPath, err)
+		}
 	}
 
 	return nil
@@ -106,13 +140,19 @@ func (i *Installer) InstallAll() (installed []string, errors []error) {
 }
 
 func (i *Installer) Remove(skillName string) error {
-	targetPath := filepath.Join(i.baseDir, TargetDir, skillName+".md")
+	// Check for directory first (multi-file skill)
+	dirPath := filepath.Join(i.baseDir, TargetDir, skillName)
+	if info, err := os.Stat(dirPath); err == nil && info.IsDir() {
+		return os.RemoveAll(dirPath)
+	}
 
-	if _, err := os.Stat(targetPath); os.IsNotExist(err) {
+	// Fallback to single file
+	filePath := filepath.Join(i.baseDir, TargetDir, skillName+".md")
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
 		return fmt.Errorf("skill not installed: %s", skillName)
 	}
 
-	if err := os.Remove(targetPath); err != nil {
+	if err := os.Remove(filePath); err != nil {
 		return fmt.Errorf("failed to remove skill: %w", err)
 	}
 
@@ -132,7 +172,14 @@ func (i *Installer) ListInstalled() ([]string, error) {
 
 	var installed []string
 	for _, entry := range entries {
-		if !entry.IsDir() && filepath.Ext(entry.Name()) == ".md" {
+		if entry.IsDir() {
+			// Multi-file skill: check for SKILL.md inside
+			skillMd := filepath.Join(targetDir, entry.Name(), "SKILL.md")
+			if _, err := os.Stat(skillMd); err == nil {
+				installed = append(installed, entry.Name())
+			}
+		} else if filepath.Ext(entry.Name()) == ".md" {
+			// Single-file skill
 			name := entry.Name()[:len(entry.Name())-3] // Remove .md extension
 			installed = append(installed, name)
 		}
@@ -142,7 +189,16 @@ func (i *Installer) ListInstalled() ([]string, error) {
 }
 
 func (i *Installer) IsInstalled(skillName string) bool {
-	targetPath := filepath.Join(i.baseDir, TargetDir, skillName+".md")
-	_, err := os.Stat(targetPath)
+	// Check directory (multi-file skill)
+	dirPath := filepath.Join(i.baseDir, TargetDir, skillName)
+	if info, err := os.Stat(dirPath); err == nil && info.IsDir() {
+		skillMd := filepath.Join(dirPath, "SKILL.md")
+		_, err := os.Stat(skillMd)
+		return err == nil
+	}
+
+	// Check single file
+	filePath := filepath.Join(i.baseDir, TargetDir, skillName+".md")
+	_, err := os.Stat(filePath)
 	return err == nil
 }

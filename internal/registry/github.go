@@ -157,6 +157,43 @@ func (g *GitHubRegistry) GetContent(skill *Skill) ([]byte, error) {
 	return g.fetch(url)
 }
 
+// GetFiles returns all files for a multi-file skill
+// Returns map of relative path -> content
+func (g *GitHubRegistry) GetFiles(skill *Skill) (map[string][]byte, error) {
+	files := make(map[string][]byte)
+
+	// Always fetch main SKILL.md
+	content, err := g.GetContent(skill)
+	if err != nil {
+		return nil, err
+	}
+	files["SKILL.md"] = content
+
+	// Fetch additional files if present
+	if len(skill.Files) == 0 {
+		return files, nil
+	}
+
+	// Get skill directory from path (e.g., "dotnet/clean-architecture" from "dotnet/clean-architecture/SKILL.md")
+	skillDir := strings.TrimSuffix(skill.Path, "/SKILL.md")
+
+	for _, filePath := range skill.Files {
+		if filePath == "SKILL.md" {
+			continue // Already fetched
+		}
+
+		// Build URL: skills/{stack}/{folder}/{filePath}
+		url := g.buildRawURL("skills/" + skillDir + "/" + filePath)
+		data, err := g.fetch(url)
+		if err != nil {
+			return nil, fmt.Errorf("failed to fetch %s: %w", filePath, err)
+		}
+		files[filePath] = data
+	}
+
+	return files, nil
+}
+
 // fetchIndex fetches and caches the registry index
 func (g *GitHubRegistry) fetchIndex() (*RegistryIndex, error) {
 	// Try cache first

@@ -185,6 +185,8 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 4. Run `./scripts/generate-registry.sh` to update the registry
 5. Submit a pull request
 
+See [docs/creating-skills.md](./docs/creating-skills.md) for detailed instructions.
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.

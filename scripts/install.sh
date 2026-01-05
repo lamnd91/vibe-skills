@@ -2,7 +2,7 @@
 set -e
 
 # Vibe Skills Installer
-# Usage: curl -sSL https://raw.githubusercontent.com/cuongtl/vibe-skills/main/scripts/install.sh | bash
+# Usage: curl -sSL https://raw.githubusercontent.com/cuongtl1992/vibe-skills/main/scripts/install.sh | bash
 
 REPO="cuongtl/vibe-skills"
 BINARY_NAME="vibe-skills"

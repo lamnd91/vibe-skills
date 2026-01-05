@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/cuongtl/vibe-skills/internal/installer"
-	"github.com/cuongtl/vibe-skills/internal/registry"
+	"github.com/cuongtl1992/vibe-skills/internal/installer"
+	"github.com/cuongtl1992/vibe-skills/internal/registry"
 	"github.com/spf13/cobra"
 )
 

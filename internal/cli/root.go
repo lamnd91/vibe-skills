@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cuongtl/vibe-skills/internal/config"
-	"github.com/cuongtl/vibe-skills/internal/registry"
+	"github.com/cuongtl1992/vibe-skills/internal/config"
+	"github.com/cuongtl1992/vibe-skills/internal/registry"
 	"github.com/spf13/cobra"
 )
 

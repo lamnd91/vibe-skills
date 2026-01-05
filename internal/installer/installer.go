@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/cuongtl/vibe-skills/internal/registry"
+	"github.com/cuongtl1992/vibe-skills/internal/registry"
 )
 
 const TargetDir = ".claude/skills"

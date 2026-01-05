@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cuongtl/vibe-skills/internal/installer"
+	"github.com/cuongtl1992/vibe-skills/internal/installer"
 	"github.com/spf13/cobra"
 )
 

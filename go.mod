@@ -1,4 +1,4 @@
-module github.com/cuongtl/vibe-skills
+module github.com/cuongtl1992/vibe-skills
 
 go 1.22
 

@@ -135,7 +135,7 @@ docs(readme): update installation instructions
 
 ```bash
 # Clone the repo
-git clone https://github.com/cuongtl/vibe-skills.git
+git clone https://github.com/cuongtl1992/vibe-skills.git
 cd vibe-skills
 
 # Install dependencies
@@ -174,8 +174,8 @@ vibe-skills/
 Skills are fetched from GitHub raw content at runtime:
 
 ```
-https://raw.githubusercontent.com/cuongtl/vibe-skills/{ref}/skills/registry.json
-https://raw.githubusercontent.com/cuongtl/vibe-skills/{ref}/skills/{stack}/{name}/SKILL.md
+https://raw.githubusercontent.com/cuongtl1992/vibe-skills/{ref}/skills/registry.json
+https://raw.githubusercontent.com/cuongtl1992/vibe-skills/{ref}/skills/{stack}/{name}/SKILL.md
 ```
 
 The `{ref}` can be a branch, tag, or commit hash. Users can specify it via:

@@ -9,11 +9,11 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/cuongtl/vibe-skills/internal/version"
+	"github.com/cuongtl1992/vibe-skills/internal/version"
 )
 
 const (
-	repoOwner = "cuongtl"
+	repoOwner = "cuongtl1992"
 	repoName  = "vibe-skills"
 )
 

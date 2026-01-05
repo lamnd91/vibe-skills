@@ -3,8 +3,8 @@ package cli
 import (
 	"fmt"
 
-	"github.com/cuongtl/vibe-skills/internal/updater"
-	"github.com/cuongtl/vibe-skills/internal/version"
+	"github.com/cuongtl1992/vibe-skills/internal/updater"
+	"github.com/cuongtl1992/vibe-skills/internal/version"
 	"github.com/spf13/cobra"
 )
 

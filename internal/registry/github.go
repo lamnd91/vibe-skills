@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultOwner  = "cuongtl"
+	DefaultOwner  = "cuongtl1992"
 	DefaultRepo   = "vibe-skills"
 	DefaultBranch = "main"
 	RawGitHubURL  = "https://raw.githubusercontent.com"

@@ -19,9 +19,9 @@ builds:
       - arm64
     ldflags:
       - -s -w
-      - -X github.com/cuongtl/vibe-skills/internal/version.Version={{.Version}}
-      - -X github.com/cuongtl/vibe-skills/internal/version.Commit={{.Commit}}
-      - -X github.com/cuongtl/vibe-skills/internal/version.Date={{.Date}}
+      - -X github.com/cuongtl1992/vibe-skills/internal/version.Version={{.Version}}
+      - -X github.com/cuongtl1992/vibe-skills/internal/version.Commit={{.Commit}}
+      - -X github.com/cuongtl1992/vibe-skills/internal/version.Date={{.Date}}
 
 archives:
   - format: tar.gz
@@ -53,7 +53,7 @@ changelog:
 
 release:
   github:
-    owner: cuongtl
+    owner: cuongtl1992
     name: vibe-skills
   draft: false
   prerelease: auto

@@ -17,36 +17,36 @@ A community-driven collection of skills for Claude Code. Easily install and mana
 
 ```bash
 # macOS/Linux
-curl -sSL https://raw.githubusercontent.com/cuongtl/vibe-skills/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/cuongtl1992/vibe-skills/main/scripts/install.sh | bash
 
 # Or with Go
-go install github.com/cuongtl/vibe-skills/cmd/vibe-skills@latest
+go install github.com/cuongtl1992/vibe-skills/cmd/vibe-skills@latest
 ```
 
 ### Download from GitHub Releases
 
 ```bash
 # macOS (Apple Silicon)
-curl -L https://github.com/cuongtl/vibe-skills/releases/latest/download/vibe-skills_darwin_arm64.tar.gz | tar xz
+curl -L https://github.com/cuongtl1992/vibe-skills/releases/latest/download/vibe-skills_darwin_arm64.tar.gz | tar xz
 sudo mv vibe-skills /usr/local/bin/
 
 # macOS (Intel)
-curl -L https://github.com/cuongtl/vibe-skills/releases/latest/download/vibe-skills_darwin_amd64.tar.gz | tar xz
+curl -L https://github.com/cuongtl1992/vibe-skills/releases/latest/download/vibe-skills_darwin_amd64.tar.gz | tar xz
 sudo mv vibe-skills /usr/local/bin/
 
 # Linux (amd64)
-curl -L https://github.com/cuongtl/vibe-skills/releases/latest/download/vibe-skills_linux_amd64.tar.gz | tar xz
+curl -L https://github.com/cuongtl1992/vibe-skills/releases/latest/download/vibe-skills_linux_amd64.tar.gz | tar xz
 sudo mv vibe-skills /usr/local/bin/
 
 # Linux (arm64)
-curl -L https://github.com/cuongtl/vibe-skills/releases/latest/download/vibe-skills_linux_arm64.tar.gz | tar xz
+curl -L https://github.com/cuongtl1992/vibe-skills/releases/latest/download/vibe-skills_linux_arm64.tar.gz | tar xz
 sudo mv vibe-skills /usr/local/bin/
 ```
 
 ### Windows
 
 ```powershell
-Invoke-WebRequest -Uri https://github.com/cuongtl/vibe-skills/releases/latest/download/vibe-skills_windows_amd64.zip -OutFile vibe-skills.zip
+Invoke-WebRequest -Uri https://github.com/cuongtl1992/vibe-skills/releases/latest/download/vibe-skills_windows_amd64.zip -OutFile vibe-skills.zip
 Expand-Archive vibe-skills.zip -DestinationPath .
 # Add to PATH or move to a directory in PATH
 ```

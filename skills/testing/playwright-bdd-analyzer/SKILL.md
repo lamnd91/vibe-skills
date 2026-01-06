@@ -1,3 +1,15 @@
+---
+name: playwright-bdd-analyzer
+description: |
+  Analyze Playwright-BDD/Cucumber test quality and maintainability.
+  Use when:
+  (1) Reviewing .feature files for quality issues
+  (2) Checking step definition reusability and duplicates
+  (3) Identifying test coverage gaps (happy path, error path, boundary)
+  (4) Detecting flaky test patterns (waitForTimeout, text selectors)
+  (5) Generating quality metrics and improvement recommendations
+---
+
 # Playwright-BDD Analyzer
 
 > Analyze and improve Playwright-BDD/Cucumber test quality, coverage, and maintainability.

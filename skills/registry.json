@@ -2,6 +2,13 @@
   "version": "1.0",
   "skills": [
     {
+      "name": "review-code-android",
+      "stack": "android",
+      "description": "Review Android and Kotlin code for correctness, lifecycle safety, threading, memory, and platform best practices. Use when reviewing Android or Kotlin code, pull requests in Android projects, or when ",
+      "path": "android/code-reviewer/SKILL.md",
+      "files": ["SKILL.md", "references/checklists.md"]
+    },
+    {
       "name": "bdd-practices",
       "stack": "common",
       "description": "Cucumber/Gherkin BDD best practices guidance skill, providing Gherkin writing standards, scenario design principles, Discovery Workshop facilitation, and common anti-pattern identification to help tea",

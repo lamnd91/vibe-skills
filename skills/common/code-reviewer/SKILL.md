@@ -10,7 +10,9 @@ Systematic approach to reviewing code changes.
 ## Review Process
 
 1. **Understand context** - Read PR description, linked issues, related files
-2. **Review by area** - Apply relevant checklists from [references/checklists.md](references/checklists.md). For Flutter/Dart changes, use [references/flutter_dart_checklist.md](references/flutter_dart_checklist.md).
+2. **Review by area** 
+    - Apply relevant checklists, common checklists from [references/common_checklists.md](references/common_checklists.md). 
+    - For Flutter/Dart changes, use [references/flutter_dart_checklist.md](references/flutter_dart_checklist.md).
 3. **Provide feedback** - Use comment format below
 
 ## Comment Format
